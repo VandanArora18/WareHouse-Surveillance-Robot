@@ -75,7 +75,7 @@ Leveraging Ignition Gazebo for physics simulation and SLAM Toolbox for real-time
 
 <p align="center">
   <!-- UPLOAD YOUR METHODOLOGY FLOWCHART PHOTO HERE -->
-  <img src="[INSERT_METHODOLOGY_FLOWCHART_URL_HERE]" alt="System Architecture Flowchart" width="90%">
+  <img src="[[INSERT_METHODOLOGY_FLOWCHART_URL_HERE](https://github.com/VandanArora18/WareHouse-Surveillance-Robot/blob/97188ad54a96485a2c601320d2fea95f668190f0/Methodolgy.png)]" alt="System Architecture Flowchart" width="90%">
 </p>
 
 The system operates on a 10-step architectural pipeline, seamlessly translating CAD models into a functional ROS 2 simulation:
