@@ -11,7 +11,7 @@
     <a href="#-visual-gallery">Gallery</a> •
     <a href="#-technology-stack">Tech Stack</a> •
     <a href="#-working-methodology">Methodology</a> •
-    <a href="#-getting-started">Installation & Usage</a> •
+    <a href="#-Installation">Installation & Usage</a> •
     <a href="#-future-directions">Future Scope</a>
   </p>
 </p>
@@ -40,19 +40,16 @@ Leveraging Ignition Gazebo for physics simulation and SLAM Toolbox for real-time
 ---
 
 ## 📸 Visual Gallery
-
-*(Replace the placeholder links inside the brackets `( )` with your actual image URLs)*
-
 ### 1. CAD Design & Modelling
 <p align="center">
-  <img src="[INSERT_CAD_PHOTO_1_URL_HERE]" alt="CAD Design 1" width="45%">
-  <img src="[INSERT_CAD_PHOTO_2_URL_HERE]" alt="CAD Design 2" width="45%">
+  <img src="https://github.com/VandanArora18/WareHouse-Surveillance-Robot/raw/339d4facbd49a4011dce47cd959680f590f905a9/cad_1.png" alt="CAD Design 1" width="45%">
+  <img src="https://github.com/VandanArora18/WareHouse-Surveillance-Robot/raw/339d4facbd49a4011dce47cd959680f590f905a9/cad_2.png" alt="CAD Design 2" width="45%">
 </p>
 
 ### 2. Simulated Environment & Mapping
 <p align="center">
-  <img src="[INSERT_WAREHOUSE_WORLD_PHOTO_URL_HERE]" alt="Gazebo Warehouse World" width="45%">
-  <img src="[INSERT_SLAM_RVIZ_PHOTO_URL_HERE]" alt="RViz2 SLAM Mapping" width="45%">
+  <img src="https://github.com/VandanArora18/WareHouse-Surveillance-Robot/raw/339d4facbd49a4011dce47cd959680f590f905a9/world.png" alt="Gazebo Warehouse World" width="45%">
+  <img src="https://github.com/VandanArora18/WareHouse-Surveillance-Robot/raw/339d4facbd49a4011dce47cd959680f590f905a9/Slam.png" alt="RViz2 SLAM Mapping" width="45%">
 </p>
 
 ---
@@ -92,7 +89,7 @@ The system operates on a 10-step architectural pipeline, seamlessly translating 
 
 ---
 
-## 🚀 Getting Started (Installation & Usage)
+## 🚀 Installation 
 
 Follow these steps to run the warehouse surveillance robot on your local machine.
 
