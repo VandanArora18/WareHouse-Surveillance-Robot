@@ -1,0 +1,34 @@
+-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/agam8/ros2_proj/build/warehouse_robot_description
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/urdf/warehouse_robot.urdf.xacro
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/meshes/base/base_gazebo.stl
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/rviz/display.rviz
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/config/ros_gz_bridge.yaml
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/launch/display.launch.py
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/launch/gazebo.launch.py
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/pick_and_place.sdf
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse.sdf
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse.world
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse_factory.sdf
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/scripts/teleop_pick_place.py
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/package_run_dependencies/warehouse_robot_description
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/parent_prefix_path/warehouse_robot_description
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/ament_prefix_path.sh
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/ament_prefix_path.dsv
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/path.sh
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/path.dsv
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.bash
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.sh
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.zsh
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.dsv
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/package.dsv
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/packages/warehouse_robot_description
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/cmake/warehouse_robot_descriptionConfig.cmake
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/cmake/warehouse_robot_descriptionConfig-version.cmake
+-- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/package.xml
+-- Up-to-date: /home/agam8/ros2_proj/install/warehouse_robot_description/lib/warehouse_robot_description/teleop_pick_place
