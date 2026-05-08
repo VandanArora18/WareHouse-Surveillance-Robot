@@ -91,11 +91,11 @@ The system operates on a 10-step architectural pipeline, seamlessly translating 
 --- 
 
 ## 🔮 Future Directions
-Nav2 Integration: Implement the ROS 2 Navigation stack for fully autonomous waypoint navigation.
+1. Nav2 Integration: Implement the ROS 2 Navigation stack for fully autonomous waypoint navigation.
 
-Computer Vision: Integrate OpenCV to detect specific colored packages or safety hazards in the camera feed.
+2. Computer Vision: Integrate OpenCV to detect specific colored packages or safety hazards in the camera feed.
 
-Physical Hardware Transition: Transfer the ROS 2 logic to physical microcontrollers (e.g., Raspberry Pi/ESP32) and physical motors.
+3. Physical Hardware Transition: Transfer the ROS 2 logic to physical microcontrollers (e.g., Raspberry Pi/ESP32) and physical motors.
 
 ---
 
