@@ -12,7 +12,7 @@
     <a href="#-technology-stack">Tech Stack</a> •
     <a href="#-working-methodology">Methodology</a> •
     <a href="#-Installation">Installation & Usage</a> •
-    <a href="#-future-directions">Future Scope</a>
+    <a href="#-Future-Directions">Future Scope</a>
   </p>
 </p>
 
@@ -88,6 +88,17 @@ The system operates on a 10-step architectural pipeline, seamlessly translating 
 10. **Complete System Workflow:** The synchronized execution of the above nodes allowing simultaneous exploration, mapping, and surveillance.
 
 ---
+--- 
+
+## 🔮 Future Directions
+Nav2 Integration: Implement the ROS 2 Navigation stack for fully autonomous waypoint navigation.
+
+Computer Vision: Integrate OpenCV to detect specific colored packages or safety hazards in the camera feed.
+
+Physical Hardware Transition: Transfer the ROS 2 logic to physical microcontrollers (e.g., Raspberry Pi/ESP32) and physical motors.
+
+---
+
 
 ## 🚀 Installation 
 
@@ -118,3 +129,5 @@ colcon build --symlink-install
 
 # Source the workspace
 source install/setup.bash
+
+
