@@ -1,0 +1,38 @@
+[0.049s] Invoking command in '/home/agam8/ros2_proj/build/warehouse_robot_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/agam8/ros2_proj/build/warehouse_robot_description -- -j16 -l16
+[0.119s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.613s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.934s] -- Configuring done
+[0.948s] -- Generating done
+[0.957s] -- Build files have been written to: /home/agam8/ros2_proj/build/warehouse_robot_description
+[1.026s] Invoked command in '/home/agam8/ros2_proj/build/warehouse_robot_description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/agam8/ros2_proj/build/warehouse_robot_description -- -j16 -l16
+[1.063s] Invoking command in '/home/agam8/ros2_proj/build/warehouse_robot_description': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/agam8/ros2_proj/build/warehouse_robot_description
+[1.083s] -- Install configuration: ""
+[1.085s] -- Execute custom install script
+[1.086s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/urdf/warehouse_robot.urdf.xacro
+[1.088s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/meshes/base/base_gazebo.stl
+[1.089s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/rviz/display.rviz
+[1.100s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/config/ros_gz_bridge.yaml
+[1.102s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/launch/display.launch.py
+[1.102s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/launch/gazebo.launch.py
+[1.104s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/pick_and_place.sdf
+[1.105s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse.sdf
+[1.106s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse.world
+[1.106s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/worlds/warehouse_factory.sdf
+[1.108s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/scripts/teleop_pick_place.py
+[1.108s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/package_run_dependencies/warehouse_robot_description
+[1.125s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/parent_prefix_path/warehouse_robot_description
+[1.126s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/ament_prefix_path.sh
+[1.127s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/ament_prefix_path.dsv
+[1.127s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/path.sh
+[1.128s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/environment/path.dsv
+[1.128s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.bash
+[1.129s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.sh
+[1.129s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.zsh
+[1.130s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/local_setup.dsv
+[1.130s] -- Symlinking: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/package.dsv
+[1.140s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/ament_index/resource_index/packages/warehouse_robot_description
+[1.141s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/cmake/warehouse_robot_descriptionConfig.cmake
+[1.142s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/cmake/warehouse_robot_descriptionConfig-version.cmake
+[1.142s] -- Up-to-date symlink: /home/agam8/ros2_proj/install/warehouse_robot_description/share/warehouse_robot_description/package.xml
+[1.143s] -- Up-to-date: /home/agam8/ros2_proj/install/warehouse_robot_description/lib/warehouse_robot_description/teleop_pick_place
+[1.153s] Invoked command in '/home/agam8/ros2_proj/build/warehouse_robot_description' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/agam8/ros2_proj/build/warehouse_robot_description
