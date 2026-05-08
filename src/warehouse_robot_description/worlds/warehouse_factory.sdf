@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<!--
+  warehouse_factory.sdf
+  ─────────────────────────────────────────────────────────────
+  Full factory-style warehouse world for Ignition Gazebo Fortress v6.
+
+  Layout (top-down, all metres):
+  ┌──────────────────────────────────────────────────────┐
+  │                   20 m × 16 m floor                  │
+  │                                                      │
+  │  [Shelf A1][Shelf A2]      [Shelf B1][Shelf B2]      │
+  │       PICK ZONE                  PLACE ZONE          │
+  │                                                      │
+  │         Robot spawns at (0, 0, 0) facing +X          │
+  │                                                      │
+  │  [Shelf C1][Shelf C2]      [Shelf D1][Shelf D2]      │
+  │                                                      │
+  └──────────────────────────────────────────────────────┘
+
+  Shelves: 3-level metal rack, 1.5 m wide × 0.4 m deep × 2.0 m tall
+  Boxes on shelves:
+    Dims: 0.040 m × 0.068 m × 0.080 m  (fits between gripper fingers 40 mm gap)
+    Placed at shelf level 1 height = 0.40 m  (easily reachable by arm)
+
+  Gripper reference (from Creo sketch):
+    Finger length = 70 mm, finger width = 40 mm, gap between fingers = 35 mm
+    Box width  = 0.030 m (fits in 35 mm gap with 2.5 mm clearance each side)
+    Box depth  = 0.065 m (slightly less than finger length 70 mm)
+    Box height = 0.080 m
+-->
+<sdf version="1.9">
+<world name="warehouse_factory">
+
+  <!-- ════════ PHYSICS ════════ -->
+  <physics name="1ms" type="ode">
+    <max_step_size>0.001</max_step_size>
+    <real_time_factor>1.0</real_time_factor>
+    <ode>
+      <solver>
+        <type>quick</type>
+        <iters>50</iters>
+        <sor>1.4</sor>
+      </solver>
+    </ode>
+  </physics>
+
+  <!-- ════════ REQUIRED SYSTEM PLUGINS ════════ -->
+  <plugin filename="ignition-gazebo-physics-system"
+          name="ignition::gazebo::systems::Physics"/>
+  <plugin filename="ignition-gazebo-user-commands-system"
+          name="ignition::gazebo::systems::UserCommands"/>
+  <plugin filename="ignition-gazebo-scene-broadcaster-system"
+          name="ignition::gazebo::systems::SceneBroadcaster"/>
+  <plugin filename="ignition-gazebo-sensors-system"
+          name="ignition::gazebo::systems::Sensors">
+    <render_engine>ogre</render_engine>
+  </plugin>
+
+
+
+
+  <!-- ════════ LIGHTING ════════ -->
+  <!-- Main overhead fluorescent-style lights -->
+  <light name="light_overhead_1" type="point">
+    <pose>0 4 4.5 0 0 0</pose>
+    <diffuse>0.9 0.9 0.85 1</diffuse>
+    <specular>0.3 0.3 0.3 1</specular>
+    <attenuation><range>20</range><constant>0.3</constant><linear>0.02</linear><quadratic>0.001</quadratic></attenuation>
+    <cast_shadows>false</cast_shadows>
+  </light>
+  <light name="light_overhead_2" type="point">
+    <pose>0 -4 4.5 0 0 0</pose>
+    <diffuse>0.9 0.9 0.85 1</diffuse>
+    <specular>0.3 0.3 0.3 1</specular>
+    <attenuation><range>20</range><constant>0.3</constant><linear>0.02</linear><quadratic>0.001</quadratic></attenuation>
+    <cast_shadows>false</cast_shadows>
+  </light>
+  <light name="sun" type="directional">
+    <pose>0 0 10 0 0 0</pose>
+    <diffuse>0.6 0.6 0.6 1</diffuse>
+    <specular>0.1 0.1 0.1 1</specular>
+    <direction>-0.3 0.1 -0.9</direction>
+    <cast_shadows>true</cast_shadows>
+  </light>
+
+  <!-- ════════ GROUND / FLOOR ════════ -->
+  <model name="factory_floor">
+    <static>true</static>
+    <link name="link">
+      <collision name="col">
+        <geometry><plane><normal>0 0 1</normal><size>20 16</size></plane></geometry>
+        <surface>
+          <friction><ode><mu>0.8</mu><mu2>0.8</mu2></ode></friction>
+          <bounce><restitution_coefficient>0</restitution_coefficient><threshold>1e6</threshold></bounce>
+          <contact><ode><kp>1e6</kp><kd>100</kd></ode></contact>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><plane><normal>0 0 1</normal><size>20 16</size></plane></geometry>
+        <material>
+          <!-- Concrete floor look -->
+          <ambient>0.55 0.55 0.55 1</ambient>
+          <diffuse>0.65 0.65 0.65 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+        </material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════ FACTORY WALLS ════════ -->
+  <!-- North wall -->
+  <model name="wall_north">
+    <static>true</static>
+    <pose>0 8 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>20 0.25 5</size></box></geometry></collision>
+      <visual name="vis">
+        <geometry><box><size>20 0.25 5</size></box></geometry>
+        <material><ambient>0.7 0.65 0.55 1</ambient><diffuse>0.75 0.70 0.60 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <!-- South wall -->
+  <model name="wall_south">
+    <static>true</static>
+    <pose>0 -8 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>20 0.25 5</size></box></geometry></collision>
+      <visual name="vis">
+        <geometry><box><size>20 0.25 5</size></box></geometry>
+        <material><ambient>0.7 0.65 0.55 1</ambient><diffuse>0.75 0.70 0.60 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <!-- East wall -->
+  <model name="wall_east">
+    <static>true</static>
+    <pose>10 0 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.25 16 5</size></box></geometry></collision>
+      <visual name="vis">
+        <geometry><box><size>0.25 16 5</size></box></geometry>
+        <material><ambient>0.7 0.65 0.55 1</ambient><diffuse>0.75 0.70 0.60 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <!-- West wall -->
+  <model name="wall_west">
+    <static>true</static>
+    <pose>-10 0 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.25 16 5</size></box></geometry></collision>
+      <visual name="vis">
+        <geometry><box><size>0.25 16 5</size></box></geometry>
+        <material><ambient>0.7 0.65 0.55 1</ambient><diffuse>0.75 0.70 0.60 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════ CEILING ════════ -->
+  <model name="ceiling">
+    <static>true</static>
+    <pose>0 0 5.0 0 0 0</pose>
+    <link name="link">
+      <visual name="vis">
+        <geometry><box><size>20 16 0.1</size></box></geometry>
+        <material><ambient>0.8 0.8 0.8 1</ambient><diffuse>0.8 0.8 0.8 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════ FLOOR MARKINGS (yellow safety lanes) ════════ -->
+  <!-- Left aisle lane marking -->
+  <model name="lane_left">
+    <static>true</static>
+    <pose>-2.0 0 0.001 0 0 0</pose>
+    <link name="link">
+      <visual name="vis">
+        <geometry><box><size>0.1 14 0.002</size></box></geometry>
+        <material><ambient>0.9 0.8 0.0 1</ambient><diffuse>0.9 0.8 0.0 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <!-- Right aisle lane marking -->
+  <model name="lane_right">
+    <static>true</static>
+    <pose>2.0 0 0.001 0 0 0</pose>
+    <link name="link">
+      <visual name="vis">
+        <geometry><box><size>0.1 14 0.002</size></box></geometry>
+        <material><ambient>0.9 0.8 0.0 1</ambient><diffuse>0.9 0.8 0.0 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════════════════════════════════════════
+       SHELF MACRO (defined as repeated models)
+       Each shelf: steel frame 1.5m wide × 0.4m deep × 2.0m tall
+       3 levels at heights: 0.5 m, 1.0 m, 1.5 m
+  ════════════════════════════════════════════ -->
+
+  <!-- ── PICK ZONE: LEFT SIDE  x=-5 ── -->
+
+  <!-- Shelf A1: PICK zone, back-left -->
+  <model name="shelf_A1">
+    <static>true</static>
+    <pose>-6.0 5.0 0 0 0 0</pose>
+    <link name="link">
+      <!-- Uprights -->
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <!-- Level 1 shelf board at 0.48m -->
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <!-- Level 2 shelf board at 0.98m -->
+      <collision name="col_l2"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.98 0 0 0</pose></collision>
+      <!-- Level 3 shelf board at 1.48m -->
+      <collision name="col_l3"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 1.48 0 0 0</pose></collision>
+
+      <!-- Visual frame (steel blue-grey) -->
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse><specular>0.3 0.3 0.3 1</specular></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l2">
+        <pose>0 0 0.98 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l3">
+        <pose>0 0 1.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- Shelf A2: PICK zone, front-left -->
+  <model name="shelf_A2">
+    <static>true</static>
+    <pose>-6.0 2.0 0 0 0 0</pose>
+    <link name="link">
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <collision name="col_l2"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.98 0 0 0</pose></collision>
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l2">
+        <pose>0 0 0.98 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ── PLACE ZONE: RIGHT SIDE  x=+5 ── -->
+
+  <!-- Shelf B1: PLACE zone, back-right -->
+  <model name="shelf_B1">
+    <static>true</static>
+    <pose>6.0 5.0 0 0 0 0</pose>
+    <link name="link">
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <collision name="col_l2"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.98 0 0 0</pose></collision>
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l2">
+        <pose>0 0 0.98 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- Shelf B2: PLACE zone, front-right -->
+  <model name="shelf_B2">
+    <static>true</static>
+    <pose>6.0 2.0 0 0 0 0</pose>
+    <link name="link">
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <collision name="col_l2"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.98 0 0 0</pose></collision>
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l2">
+        <pose>0 0 0.98 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ── NEGATIVE Y SIDE shelves ── -->
+  <model name="shelf_C1">
+    <static>true</static>
+    <pose>-6.0 -2.0 0 0 0 0</pose>
+    <link name="link">
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <model name="shelf_D1">
+    <static>true</static>
+    <pose>6.0 -2.0 0 0 0 0</pose>
+    <link name="link">
+      <collision name="col_frame"><geometry><box><size>1.5 0.05 2.0</size></box></geometry><pose>0 0 1.0 0 0 0</pose></collision>
+      <collision name="col_l1"><geometry><box><size>1.5 0.40 0.03</size></box></geometry><pose>0 0 0.48 0 0 0</pose></collision>
+      <visual name="vis_frame">
+        <pose>0 0 1.0 0 0 0</pose>
+        <geometry><box><size>1.5 0.05 2.0</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+      <visual name="vis_l1">
+        <pose>0 0 0.48 0 0 0</pose>
+        <geometry><box><size>1.5 0.40 0.03</size></box></geometry>
+        <material><ambient>0.35 0.40 0.45 1</ambient><diffuse>0.40 0.45 0.50 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════════════════════════════════════════
+       PICK BOXES
+       Dims: 0.030 m (W) × 0.065 m (D) × 0.080 m (H)
+       Placed on shelf level 1 = 0.48 + 0.015 shelf_thickness + 0.040 box_half = 0.535 m
+       Position on shelf A1 (at x=-6, y=5):
+         3 boxes spread along shelf width
+  ════════════════════════════════════════════ -->
+
+  <!-- Box height above ground = shelf_board_top + half_box_height
+       shelf board top = 0.48 + 0.015 = 0.495 m
+       box half height = 0.040 m
+       box Z centre    = 0.535 m -->
+
+  <!-- Shelf A1 boxes (PICK zone) -->
+  <model name="box_A1_1">
+    <pose>-6.5 5.0 0.535 0 0 0</pose>
+    <link name="link">
+      <collision name="col">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <surface>
+          <friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction>
+          <contact><ode><kp>1e5</kp><kd>10</kd></ode></contact>
+        </surface>
+      </collision>
+      <visual name="vis">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <material>
+          <ambient>0.8 0.3 0.1 1</ambient>
+          <diffuse>0.9 0.4 0.1 1</diffuse>
+        </material>
+      </visual>
+      <inertial>
+        <mass>0.2</mass>
+        <inertia>
+          <ixx>0.000227</ixx><ixy>0</ixy><ixz>0</ixz>
+          <iyy>0.000193</iyy><iyz>0</iyz>
+          <izz>0.000057</izz>
+        </inertia>
+      </inertial>
+    </link>
+  </model>
+
+  <model name="box_A1_2">
+    <pose>-6.0 5.0 0.535 0 0 0</pose>
+    <link name="link">
+      <collision name="col">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <surface><friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction></surface>
+      </collision>
+      <visual name="vis">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <material><ambient>0.2 0.5 0.8 1</ambient><diffuse>0.2 0.5 0.9 1</diffuse></material>
+      </visual>
+      <inertial><mass>0.2</mass>
+        <inertia><ixx>0.000227</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000193</iyy><iyz>0</iyz><izz>0.000057</izz></inertia>
+      </inertial>
+    </link>
+  </model>
+
+  <model name="box_A1_3">
+    <pose>-5.5 5.0 0.535 0 0 0</pose>
+    <link name="link">
+      <collision name="col">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <surface><friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction></surface>
+      </collision>
+      <visual name="vis">
+        <geometry><box><size>0.030 0.065 0.080</size></box></geometry>
+        <material><ambient>0.1 0.7 0.2 1</ambient><diffuse>0.1 0.8 0.2 1</diffuse></material>
+      </visual>
+      <inertial><mass>0.2</mass>
+        <inertia><ixx>0.000227</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000193</iyy><iyz>0</iyz><izz>0.000057</izz></inertia>
+      </inertial>
+    </link>
+  </model>
+
+  <!-- Shelf A2 boxes -->
+  <model name="box_A2_1">
+    <pose>-6.5 2.0 0.535 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.030 0.065 0.080</size></box></geometry><surface><friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction></surface></collision>
+      <visual name="vis"><geometry><box><size>0.030 0.065 0.080</size></box></geometry><material><ambient>0.8 0.7 0.1 1</ambient><diffuse>0.9 0.8 0.1 1</diffuse></material></visual>
+      <inertial><mass>0.2</mass><inertia><ixx>0.000227</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000193</iyy><iyz>0</iyz><izz>0.000057</izz></inertia></inertial>
+    </link>
+  </model>
+
+  <model name="box_A2_2">
+    <pose>-6.0 2.0 0.535 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.030 0.065 0.080</size></box></geometry><surface><friction><ode><mu>0.6</mu><mu2>0.6</mu2></ode></friction></surface></collision>
+      <visual name="vis"><geometry><box><size>0.030 0.065 0.080</size></box></geometry><material><ambient>0.7 0.2 0.7 1</ambient><diffuse>0.8 0.2 0.8 1</diffuse></material></visual>
+      <inertial><mass>0.2</mass><inertia><ixx>0.000227</ixx><ixy>0</ixy><ixz>0</ixz><iyy>0.000193</iyy><iyz>0</iyz><izz>0.000057</izz></inertia></inertial>
+    </link>
+  </model>
+
+  <!-- ════════ SIGNAGE / ZONE MARKERS ════════ -->
+  <!-- "PICK" zone sign -->
+  <model name="sign_pick">
+    <static>true</static>
+    <pose>-6.0 6.5 1.8 0 0 0</pose>
+    <link name="link">
+      <visual name="vis">
+        <geometry><box><size>1.0 0.05 0.3</size></box></geometry>
+        <material><ambient>0.0 0.6 0.0 1</ambient><diffuse>0.0 0.7 0.0 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <!-- "PLACE" zone sign -->
+  <model name="sign_place">
+    <static>true</static>
+    <pose>6.0 6.5 1.8 0 0 0</pose>
+    <link name="link">
+      <visual name="vis">
+        <geometry><box><size>1.0 0.05 0.3</size></box></geometry>
+        <material><ambient>0.8 0.2 0.0 1</ambient><diffuse>0.9 0.2 0.0 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+  <!-- ════════ SUPPORT PILLARS ════════ -->
+  <model name="pillar_NE">
+    <static>true</static>
+    <pose>8 6 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.3 0.3 5</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.3 0.3 5</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <model name="pillar_NW">
+    <static>true</static>
+    <pose>-8 6 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.3 0.3 5</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.3 0.3 5</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <model name="pillar_SE">
+    <static>true</static>
+    <pose>8 -6 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.3 0.3 5</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.3 0.3 5</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+  <model name="pillar_SW">
+    <static>true</static>
+    <pose>-8 -6 2.5 0 0 0</pose>
+    <link name="link">
+      <collision name="col"><geometry><box><size>0.3 0.3 5</size></box></geometry></collision>
+      <visual name="vis"><geometry><box><size>0.3 0.3 5</size></box></geometry>
+        <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.55 0.55 0.55 1</diffuse></material>
+      </visual>
+    </link>
+  </model>
+
+</world>
+</sdf>

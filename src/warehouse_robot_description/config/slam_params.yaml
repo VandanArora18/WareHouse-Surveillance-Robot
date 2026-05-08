@@ -1,0 +1,70 @@
+# slam_params.yaml
+# slam_toolbox — async online SLAM for warehouse robot
+# Place at: config/slam_params.yaml
+
+slam_toolbox:
+  ros__parameters:
+    use_sim_time: true
+    # ── Plugin / solver ──────────────────────────────────────────
+    solver_plugin: solver_plugins::CeresSolver
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
+    ceres_preconditioner: SCHUR_JACOBI
+    ceres_trust_strategy: LEVENBERG_MARQUARDT
+    ceres_dogleg_type: TRADITIONAL_DOGLEG
+    ceres_loss_function: None
+
+    # ── Mode ─────────────────────────────────────────────────────
+    # online_async = build map in real-time, no pre-recorded bag needed
+    mode: mapping
+
+    # ── Topics & frames ──────────────────────────────────────────
+    # Must match your URDF joint names and bridge topic names
+    odom_frame:       odom
+    map_frame:        map
+    base_frame:       base_footprint   # diff drive publishes odom→base_footprint
+    scan_topic:       /scan            # bridged from Ignition lidar
+    use_scan_matching: true
+
+    # ── TF ───────────────────────────────────────────────────────
+    # slam_toolbox publishes map→odom; diff drive publishes odom→base_footprint
+    # robot_state_publisher publishes base_footprint→...→lidar_link
+    transform_publish_period: 0.02     # 50 Hz
+    tf_buffer_duration: 30.0
+
+    # ── Scan matching ─────────────────────────────────────────────
+    use_scan_matching: true
+    use_IMU_data: false                # set true if you add IMU fusion later
+    scan_buffer_size: 10
+    scan_buffer_maximum_scan_distance: 10.0
+    link_match_minimum_response_fine: 0.1
+    distance_decomposition_radius: 0.1
+
+    # ── Map update ────────────────────────────────────────────────
+    map_update_interval: 0.5           # seconds between costmap publishes
+    resolution: 0.05                   # 5 cm/cell — good for warehouse env
+    max_laser_range: 10.0              # must match URDF lidar max range
+    minimum_time_interval: 0.5
+    transform_timeout: 0.2
+    minimum_travel_distance: 0.1      # update pose after 10 cm motion
+    minimum_travel_heading: 0.1745    # update pose after 10° rotation (~0.1745 rad)
+
+    # ── Loop closure ──────────────────────────────────────────────
+    loop_search_maximum_distance: 3.0
+    loop_match_minimum_chain_size: 10
+    loop_match_maximum_variance_coarse: 3.0
+    loop_match_minimum_response_coarse: 0.35
+    loop_match_minimum_response_fine: 0.45
+
+    # ── Correlation params ────────────────────────────────────────
+    correlation_search_space_dimension: 0.5
+    correlation_search_space_resolution: 0.01
+    correlation_search_space_smear_deviation: 0.1
+
+    loop_search_space_dimension: 8.0
+    loop_search_space_resolution: 0.05
+    loop_search_space_smear_deviation: 0.03
+
+    # ── Serialisation (save/load maps) ───────────────────────────
+    # Uncomment to auto-save when node shuts down
+    # map_file_name: /tmp/warehouse_map
+    # map_start_pose: [0.0, 0.0, 0.0]
