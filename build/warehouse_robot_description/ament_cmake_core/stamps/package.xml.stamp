@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="3">
+<name>warehouse_robot_description</name>
+<version>0.2.0</version>
+<description> Warehouse pick-and-place robot: URDF, factory world, teleop. ROS 2 Humble + Ignition Gazebo Fortress v6, WSL2 Ubuntu 22.04. </description>
+<maintainer email="you@email.com">Your Name</maintainer>
+<license>Apache-2.0</license>
+<buildtool_depend>ament_cmake</buildtool_depend>
+<buildtool_depend>ament_cmake_python</buildtool_depend>
+<exec_depend>robot_state_publisher</exec_depend>
+<exec_depend>xacro</exec_depend>
+<exec_depend>rviz2</exec_depend>
+<exec_depend>joint_state_publisher_gui</exec_depend>
+<exec_depend>ros_gz_sim</exec_depend>
+<exec_depend>ros_gz_bridge</exec_depend>
+<exec_depend>ros_gz_interfaces</exec_depend>
+<!--  SetEntityPose srv  -->
+<exec_depend>tf2_ros</exec_depend>
+<exec_depend>launch</exec_depend>
+<exec_depend>launch_ros</exec_depend>
+<exec_depend>python3-rclpy</exec_depend>
+<export>
+<build_type>ament_cmake</build_type>
+<gazebo_ros gazebo_model_path="~/ros2_proj/src/warehouse_robot_description/models"/>
+</export>
+</package>

@@ -1,0 +1,1 @@
+robot_state_publisher;xacro;rviz2;joint_state_publisher_gui;ros_gz_sim;ros_gz_bridge;ros_gz_interfaces;tf2_ros;launch;launch_ros;python3-rclpy
